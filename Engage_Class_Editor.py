@@ -1,4 +1,5 @@
 import tkinter as tk
+import html  # used to safely escape XML values
 from tkinter import filedialog, ttk, messagebox
 import re
 import os
@@ -404,7 +405,11 @@ class JobClassEditor:
                     job[key] = move_map.get(combo.get(), "0")
                 else:
                     job[key] = val.get()
-        parts = [f'{k}="{v}"' for k, v in job.items() if not k.startswith("__")]
+        parts = []
+        for k, v in job.items():
+            if not k.startswith("__"):
+                safe_v = html.escape(v, quote=True)  # escape &, <, >, and "
+                parts.append(f'{k}="{safe_v}"')
         new_block = "    <Param " + " ".join(parts) + " />"
         start, end = job["__span"]
         self.text = self.text[:start] + new_block + self.text[end:]
@@ -423,7 +428,12 @@ class JobClassEditor:
             original_text = entry["__original"]
             start, end = entry["__span"]
 
-            modified_parts = [f'{k}="{entry[k]}"' for k in entry if not k.startswith("__")]
+            modified_parts = []
+            for k in entry:
+                if not k.startswith("__"):
+                    safe_v = html.escape(entry[k], quote=True)
+                    modified_parts.append(f'{k}="{safe_v}"')
+
             new_text = "    <Param " + " ".join(modified_parts) + " />"
 
             if new_text != original_text:

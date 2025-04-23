@@ -130,7 +130,12 @@ class PersonDataEditor:
         char = self.data[self.current_index]
         for key in ALL_KEYS:
             char[key] = self.entries[key].get()
-        parts = [f'{k}="{v}"' for k, v in char.items() if not k.startswith("__")]
+        parts = []
+        for k, v in char.items():
+            if not k.startswith("__"):
+                safe_v = v.replace('"', '&quot;')  # escape any quotes
+                parts.append(f'{k}="{safe_v}"')
+
         new_block = "    <Param " + " ".join(parts) + " />"
         start, end = char["__span"]
         self.text = self.text[:start] + new_block + self.text[end:]
