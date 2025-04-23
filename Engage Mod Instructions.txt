@@ -1,0 +1,23 @@
+https://github.com/nesrak1/UABEA
+- Use UABEAvalonia to open
+Fire Emblem Engage Extract\Data\StreamingAssets\aa\Switch\fe_assets_gamedata\person.xml.bundle in memory
+
+- click Info and select the Person asset in the viewer
+
+- choose export dump and save that txt file next to the Python GUI
+
+- open the file with the GUI and edit stats as desired. Save Changes when switching characters, and save to file when finished
+
+- go back to UABE and select Person again in the assets viewer
+
+- choose import dump and load back in your text file
+
+- use view data to verify that it worked
+
+- once verified then choose file -> save, then close the info menu
+
+- from the main UABEA menu choose file -> save as and name it as person.xml.bundle
+
+- put that mod inside of a cobalt mod folder, following the proper file paths
+
+MOD_NAME\Data\StreamingAssets\aa\Switch\fe_assets_gamedata\person.xml.bundle
